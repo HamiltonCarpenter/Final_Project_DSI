@@ -5,9 +5,13 @@ from flask import Flask,render_template, request,jsonify,Response
 app = Flask(__name__)
 
 # Add a single endpoint that we can use for testing
-@app.route('/', methods = ['GET'])
+@app.route('/', methods = ['GET','POST'])
 def home():
-    return '<h1> Hello World </h1><p>Bane?</p>'
+    if(request.method == 'GET'):
+        return render_template('home.html') 
+    if(request.method == 'POST'):
+        text = request.form['text']
+        return render_template('result.html', value=text)
 
 #When run from command line, start the server
 if __name__ == '__main__':
